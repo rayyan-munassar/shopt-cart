@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shop.css" />
+    <title>Shop</title>
+  </head>
+  <body>
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="shop.html">Shop</a>
+      <div>
+        <a href="cart.html">Cart</a>
+        <button class="btn login-btn">Login</button>
+      </div>
+    </nav>
+    <!-- Main -->
+    <main>
+      <!-- Initial Image -->
+      <div class="image-base">
+        <img src="/assets/themes/thumbnail-1.webp" alt="" />
+      </div>
+      <!-- Login Modal -->
+      <dialog class="modal">
+        <span class="btn close-btn">&times;</span>
+        <h2>Login</h2>
+        <form>
+          <div>
+            <label for="email">mail:</label>
+            <input id="email" type="email" />
+          </div>
+          <div>
+            <label for="password">pass:</label>
+            <input id="password" type="password" />
+          </div>
+        </form>
+      </dialog>
+
+      <!-- HTML content -->
+      <div class="products-container"></div>
+
+      <!-- Pagination  -->
+      <div class="pagination">
+        <button id="prevPageBtn">Prev</button>
+        <button id="nextPageBtn">Next</button>
+      </div>
+    </main>
+    <script src="shop.js" defer></script>
+    <script src="login.js" defer></script>
+  </body>
+</html>

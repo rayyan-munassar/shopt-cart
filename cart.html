@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <title>Cart</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="shop.html">Shop</a>
+      <div>
+        <a href="cart.html">Cart</a>
+        <button class="login-btn">Login</button>
+      </div>
+    </nav>
+    <main>
+      <!-- Modal -->
+      <dialog class="modal">
+        <span class="btn close-btn">&times;</span>
+        <h2>Login</h2>
+        <form>
+          <div>
+            <label for="email">mail:</label> <input id="email" type="email" />
+          </div>
+          <div>
+            <label for="password">pass:</label>
+            <input id="password" type="password" />
+          </div>
+        </form>
+      </dialog>
+
+      <h1 class="cart-total">Cart Total is: <span>$$$$</span></h1>
+
+      <div class="cart-container">
+       
+    </main>
+    <script src="cart.js" defer></script>
+    <script src="login.js" defer></script>
+  </body>
+</html>

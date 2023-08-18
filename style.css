@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #622074;
+  min-height: 100vh;
+  background-color: #dedede;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+button {
+  cursor: pointer;
+}
+input {
+  border: #000000 solid 1px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* ==== Nav ====  */
+.nav {
+  background-color: #622074;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  color: white;
+}
+
+.login-btn {
+  border: none;
+  background-color: transparent;
+  color: white;
+  margin-left: 1rem;
+}
+
+/* ==== Modal ====  */
+
+.modal {
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  position: fixed;
+  background-color: #622074;
+  box-shadow: 0px 2px 0px 5px rgb(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+main {
+  margin: 3rem 0rem;
+}
+
+/* ==== Buttons ==== */
+
+.btn {
+  cursor: pointer;
+  background-color: #622074;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+.btn:hover {
+  background-color: #8b307d;
+}
+
+.btn:active {
+  background-color: #4a1a4e;
+}
