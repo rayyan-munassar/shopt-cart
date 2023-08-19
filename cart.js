@@ -3,13 +3,18 @@ const cartContainer = document.querySelector(".cart-container");
 
 // Get products from storage
 const storedCart = localStorage.getItem("cart");
-const cart = storedCart ? JSON.parse(storedCart) : {};
+let cart = storedCart ? JSON.parse(storedCart) : {};
 
 let total = 0;
+const calcTotal = () => {
+  total = Object.values(cart).reduce((accu, product) => {
+    return accu + product.price * product.quantity;
+  }, 0);
+};
+
 const renderCartInfo = () => {
   const productHTML = Object.entries(cart)
     .map(([key, product]) => {
-      total += product.price * product.quantity;
       return `
           <div class="product">
             <img class="product-image" src="${product.image}" alt="" />
@@ -24,6 +29,8 @@ const renderCartInfo = () => {
     })
     .join("");
 
+  calcTotal();
+
   cartContainer.innerHTML = productHTML;
   totalEl.innerHTML = `${total}$`;
 
@@ -31,9 +38,15 @@ const renderCartInfo = () => {
   const removeBtns = document.querySelectorAll(".remove-btn");
   removeBtns.forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      console.log(localStorage.removeItem("cart"));
-      window.location.reload(true);
-      console.log(event.target.dataset.key);
+      const key = event.target.dataset.key;
+      if (cart[key].quantity == 1) {
+        delete cart[key];
+      } else {
+        cart[key].quantity = cart[key].quantity - 1;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCartInfo();
+      calcTotal();
     });
   });
 };
