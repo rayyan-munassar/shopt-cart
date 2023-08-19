@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # My Awesome Cart Project
 
 This project is a shopping cart implementation that allows users to add products to their cart and view the cart contents. It includes features such as pagination for displaying products and the ability to store specific product information using the data set attribute and JSON serialization.
@@ -44,3 +45,6 @@ const productData = JSON.parse(productButton.dataset.product);
 // Add the product to the cart
 cart.addProduct(productData);
 ```
+=======
+# shopt-cart-app
+>>>>>>> 407136557ed3cc028d9aa4f63b21ee4cdfd8e1f6

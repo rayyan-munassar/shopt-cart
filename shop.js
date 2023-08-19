@@ -1,9 +1,6 @@
-// ==== Displayer punch of products per page && cart functionality ====
-
 // Define the number of products to display per page and the cart var
 const productsPerPage = 10;
 let cart = {};
-
 window.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1; // Initialize the current page
   let productsData = []; // Store all products data
@@ -40,13 +37,23 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
     });
 
-    // Set the HTML content of the products container
+    // Display the HTML for the shop page
     productsContainer.innerHTML = productsHtml.join("");
-    // Adding events listener for each btn and parse JSON data
+
+    // Set button functionality
     const cartBtns = document.querySelectorAll(".product-btn");
     cartBtns.forEach((cartBtn) => {
       cartBtn.addEventListener("click", (event) => {
+        // Parse data from cart button
         const product = JSON.parse(event.target.dataset.product);
+
+        // Ensure that the cart data persists across different pages
+        const existingCartData = localStorage.getItem("cart");
+        if (existingCartData) {
+          cart = JSON.parse(existingCartData);
+        }
+
+        // Update quantity of product is exist
         if (cart[product.id]) {
           cart = {
             ...cart,
@@ -58,47 +65,43 @@ window.addEventListener("DOMContentLoaded", () => {
         } else {
           cart = { ...cart, [product.id]: { ...product, quantity: 1 } };
         }
-        console.log(cart);
+
         localStorage.setItem("cart", JSON.stringify(cart));
       });
     });
   };
 
-  // Fetch the products data
-  fetch("https://api.escuelajs.co/api/v1/products")
+  fetch("https://api.escuelajs.co/api/v1/products") // Fetch API
     .then((resp) => resp.json())
     .then((data) => {
       productsData = data; // Store the products data
 
       renderProducts(); // Render the initial products
-
-      // Function to handle pagination navigation
-      const handlePagination = (direction) => {
-        if (direction === "next") {
-          currentPage++;
-        } else if (direction === "prev") {
-          currentPage--;
-        }
-
-        // Ensure the current page stays within valid limits
-        if (currentPage < 1) {
-          currentPage = 1;
-        } else if (
-          currentPage > Math.ceil(productsData.length / productsPerPage) // num of pages
-        ) {
-          currentPage = Math.ceil(productsData.length / productsPerPage);
-        }
-
-        renderProducts(); // Render the products for the updated current page
-      };
-
-      // Pagination navigation event listeners
-      document.querySelector("#prevPageBtn").addEventListener("click", () => {
-        handlePagination("prev");
-      });
-
-      document.querySelector("#nextPageBtn").addEventListener("click", () => {
-        handlePagination("next");
-      });
     });
+
+  // Function to handle pagination navigation
+  const handlePagination = (direction) => {
+    if (direction === "next") {
+      currentPage++;
+    } else if (direction === "prev") {
+      currentPage--;
+    }
+
+    // Ensure the current page stays within valid limits
+    if (currentPage < 1) {
+      currentPage = 1;
+    } else if (currentPage > Math.ceil(productsData.length / productsPerPage)) {
+      currentPage = Math.ceil(productsData.length / productsPerPage);
+    }
+
+    renderProducts(); // Render the products for the updated current page
+  };
+  // Pagination navigation event listeners
+  document.querySelector("#prevPageBtn").addEventListener("click", () => {
+    handlePagination("prev");
+  });
+
+  document.querySelector("#nextPageBtn").addEventListener("click", () => {
+    handlePagination("next");
+  });
 });
