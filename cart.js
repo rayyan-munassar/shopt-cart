@@ -38,8 +38,8 @@ const renderCart = () => {
 
   // Remove btn
   const removeBtns = document.querySelectorAll(".remove-btn");
-  removeBtns.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
+  removeBtns.forEach((removeBtn) => {
+    removeBtn.addEventListener("click", (event) => {
       const key = event.target.dataset.key;
       if (cart[key].quantity == 1) {
         delete cart[key];

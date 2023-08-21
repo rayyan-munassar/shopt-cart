@@ -1,14 +1,17 @@
+// Get references to DOM elements
 const productsContainerEl = document.querySelector(".products-container");
 const cartIndicator = document.querySelector(".cart-indicator");
 
-// Define the number of products to display per page and the cart var
+// Number of products to display per page and cart data
 const productsPerPage = 10;
 let cart = {};
+
+// Wait for the DOM to be loaded
 window.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1; // Initialize the current page
   let productsData = []; // Store all products data
 
-  // Function to render the products for the current page
+  // Function to render products for the current page
   const renderProducts = () => {
     // Calculate the starting and ending indices for the current page
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -17,7 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Get the products to display for the current page
     const productsToDisplay = productsData.slice(startIndex, endIndex);
 
-    // Generate the HTML for the products
+    // Generate HTML for the products
     const productsHtml = productsToDisplay.map((product) => {
       const {
         id,
@@ -39,14 +42,14 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
     });
 
-    // Display the HTML for the shop page
+    // Display the products on the page
     productsContainerEl.innerHTML = productsHtml.join("");
 
-    // Set button functionality
+    // Attach event listeners to cart buttons
     const cartBtns = document.querySelectorAll(".product-btn");
     cartBtns.forEach((cartBtn) => {
       cartBtn.addEventListener("click", (event) => {
-        // Parse data from cart button
+        // Parse product data from cart button
         const product = JSON.parse(event.target.dataset.product);
 
         // Ensure that the cart data persists across different pages
