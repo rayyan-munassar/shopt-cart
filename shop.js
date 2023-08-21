@@ -1,10 +1,11 @@
+const productsContainerEl = document.querySelector(".products-container");
+
 // Define the number of products to display per page and the cart var
 const productsPerPage = 10;
 let cart = {};
 window.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1; // Initialize the current page
   let productsData = []; // Store all products data
-  let productsContainer = document.querySelector(".products-container");
 
   // Function to render the products for the current page
   const renderProducts = () => {
@@ -38,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     // Display the HTML for the shop page
-    productsContainer.innerHTML = productsHtml.join("");
+    productsContainerEl.innerHTML = productsHtml.join("");
 
     // Set button functionality
     const cartBtns = document.querySelectorAll(".product-btn");
@@ -65,11 +66,25 @@ window.addEventListener("DOMContentLoaded", () => {
         } else {
           cart = { ...cart, [product.id]: { ...product, quantity: 1 } };
         }
-
         localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Display how many products in the cart
+        displayNumberOfCartProducts();
       });
     });
   };
+
+  const displayNumberOfCartProducts = () => {
+    const storedCart = JSON.parse(localStorage.getItem("cart"));
+    console.log(storedCart);
+    const numberOfProducts = Object.values(storedCart).reduce((accu, curr) => {
+      return (accu += curr.quantity);
+    }, 0);
+    console.log(numberOfProducts);
+    document.querySelector(".cart-indicator").innerText = `${numberOfProducts}`;
+  };
+
+  displayNumberOfCartProducts(); // Display number of products in Cart
 
   fetch("https://api.escuelajs.co/api/v1/products") // Fetch API
     .then((resp) => resp.json())

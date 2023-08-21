@@ -6,7 +6,6 @@
 
 body {
   color: #622074;
-  min-height: 100vh;
   background-color: #dedede;
 }
 
@@ -44,6 +43,21 @@ input {
   background-color: transparent;
   color: white;
   margin-left: 1rem;
+}
+
+.cart-indicator {
+  position: absolute;
+  background-color: white;
+  color: #622074;
+  padding: 0.3rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 7.2rem;
+  top: 1.3rem;
 }
 
 /* ==== Modal ====  */

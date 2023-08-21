@@ -5,6 +5,7 @@ const cartContainer = document.querySelector(".cart-container");
 const storedCart = localStorage.getItem("cart");
 let cart = storedCart ? JSON.parse(storedCart) : {};
 
+// Calc total
 let total = 0;
 const calcTotal = () => {
   total = Object.values(cart).reduce((accu, product) => {
@@ -12,7 +13,8 @@ const calcTotal = () => {
   }, 0);
 };
 
-const renderCartInfo = () => {
+// Display cart products
+const renderCart = () => {
   const productHTML = Object.entries(cart)
     .map(([key, product]) => {
       return `
@@ -34,7 +36,7 @@ const renderCartInfo = () => {
   cartContainer.innerHTML = productHTML;
   totalEl.innerHTML = `${total}$`;
 
-  // Attach event listeners after adding the product HTML to the cart container
+  // Remove btn
   const removeBtns = document.querySelectorAll(".remove-btn");
   removeBtns.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -45,10 +47,10 @@ const renderCartInfo = () => {
         cart[key].quantity = cart[key].quantity - 1;
       }
       localStorage.setItem("cart", JSON.stringify(cart));
-      renderCartInfo();
+      renderCart();
       calcTotal();
     });
   });
 };
 
-renderCartInfo();
+renderCart();
