@@ -38,6 +38,13 @@ input {
   color: white;
 }
 
+.nav div {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+}
+
 .login-btn {
   border: none;
   background-color: transparent;
@@ -46,18 +53,30 @@ input {
 }
 
 .cart-indicator {
-  position: absolute;
   background-color: white;
   color: #622074;
   padding: 0.3rem;
-  width: 20px;
-  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  right: 7.2rem;
-  top: 1.3rem;
+}
+
+.bounce {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* ==== Modal ====  */
@@ -109,4 +128,8 @@ main {
 
 .btn:active {
   background-color: #4a1a4e;
+}
+
+.hidden {
+  display: none;
 }

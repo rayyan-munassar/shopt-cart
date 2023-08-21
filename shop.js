@@ -1,4 +1,5 @@
 const productsContainerEl = document.querySelector(".products-container");
+const cartIndicator = document.querySelector(".cart-indicator");
 
 // Define the number of products to display per page and the cart var
 const productsPerPage = 10;
@@ -75,13 +76,20 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const displayNumberOfCartProducts = () => {
+    cartIndicator.classList.add("bounce");
+    cartIndicator.style.color = "red";
+
     const storedCart = JSON.parse(localStorage.getItem("cart"));
-    console.log(storedCart);
     const numberOfProducts = Object.values(storedCart).reduce((accu, curr) => {
       return (accu += curr.quantity);
     }, 0);
     console.log(numberOfProducts);
-    document.querySelector(".cart-indicator").innerText = `${numberOfProducts}`;
+    cartIndicator.innerText = `${numberOfProducts}`;
+
+    setTimeout(() => {
+      cartIndicator.classList.remove("bounce");
+      cartIndicator.style.color = "black";
+    }, 500);
   };
 
   displayNumberOfCartProducts(); // Display number of products in Cart
