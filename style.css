@@ -64,21 +64,6 @@ input {
   justify-content: center;
 }
 
-.bounce {
-  animation: bounce 0.5s;
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 /* ==== Modal ====  */
 
 .modal {
@@ -132,4 +117,19 @@ main {
 
 .hidden {
   display: none;
+}
+
+.bounce {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }

@@ -1,5 +1,11 @@
 const totalEl = document.querySelector(".cart-total span");
 const cartContainer = document.querySelector(".cart-container");
+const clearBtn = document.querySelector(".clear-btn");
+
+clearBtn.addEventListener("click", () => {
+  localStorage.removeItem("cart");
+  window.location.reload(true);
+});
 
 // Get products from storage
 const storedCart = localStorage.getItem("cart");

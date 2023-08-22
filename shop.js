@@ -5,7 +5,6 @@ const cartIndicator = document.querySelector(".cart-indicator");
 // Number of products to display per page and cart data
 const productsPerPage = 10;
 let cart = {};
-
 // Wait for the DOM to be loaded
 window.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1; // Initialize the current page
@@ -79,23 +78,18 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const displayNumberOfCartProducts = () => {
-    cartIndicator.classList.add("bounce");
-    cartIndicator.style.color = "red";
-
     const storedCart = JSON.parse(localStorage.getItem("cart"));
+    cartIndicator.classList.add("bounce");
+    cartIndicator.style.color = "green";
     const numberOfProducts = Object.values(storedCart).reduce((accu, curr) => {
       return (accu += curr.quantity);
     }, 0);
-    console.log(numberOfProducts);
     cartIndicator.innerText = `${numberOfProducts}`;
-
     setTimeout(() => {
       cartIndicator.classList.remove("bounce");
       cartIndicator.style.color = "black";
-    }, 500);
+    }, 350);
   };
-
-  displayNumberOfCartProducts(); // Display number of products in Cart
 
   fetch("https://api.escuelajs.co/api/v1/products") // Fetch API
     .then((resp) => resp.json())

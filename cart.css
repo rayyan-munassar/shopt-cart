@@ -2,6 +2,12 @@
   margin-top: 5rem;
 }
 
+.cart-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
 .cart-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
