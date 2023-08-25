@@ -2,11 +2,23 @@
 const productsContainerEl = document.querySelector(".products-container");
 const cartIndicator = document.querySelector(".cart-indicator");
 
+
+
 // Number of products to display per page and cart data
 const productsPerPage = 10;
 let cart = {};
 // Wait for the DOM to be loaded
 window.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.querySelector(".search-input")
+  const searchBtn = document.querySelector(".search-btn")
+  const searchForm = document.querySelector(".search-form")
+
+  searchForm.addEventListener('click', (e)=>{
+    e.preventDefault()
+    console.log(searchInput.value)
+    renderProducts()
+  })
+
   let currentPage = 1; // Initialize the current page
   let productsData = []; // Store all products data
 
