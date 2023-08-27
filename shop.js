@@ -1,14 +1,13 @@
-// Get references to DOM elements
 const productsContainerEl = document.querySelector(".products-container");
 const cartIndicator = document.querySelector(".cart-indicator");
-
-
 
 // Number of products to display per page and cart data
 const productsPerPage = 10;
 let cart = {};
+
 // Wait for the DOM to be loaded
 window.addEventListener("DOMContentLoaded", () => {
+  // Handle search 
   const searchInput = document.querySelector(".search-input")
   const searchBtn = document.querySelector(".search-btn")
   const searchForm = document.querySelector(".search-form")
@@ -19,16 +18,14 @@ window.addEventListener("DOMContentLoaded", () => {
     renderProducts()
   })
 
-  let currentPage = 1; // Initialize the current page
+  let currentPage = 1;// Initialize the current page
   let productsData = []; // Store all products data
 
   // Function to render products for the current page
   const renderProducts = () => {
-    // Calculate the starting and ending indices for the current page
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
 
-    // Get the products to display for the current page
     const productsToDisplay = productsData.slice(startIndex, endIndex);
 
     // Generate HTML for the products
@@ -37,10 +34,10 @@ window.addEventListener("DOMContentLoaded", () => {
         id,
         price,
         title,
-        category: { image },
+        image,
       } = product;
 
-      const productJson = JSON.stringify({ id, title, price, image });
+      const productJson = JSON.stringify({id, title, price, image });
       return `
     <div class="product">
       <img class="product-image" src="${image}" alt="" />
@@ -60,16 +57,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const cartBtns = document.querySelectorAll(".product-btn");
     cartBtns.forEach((cartBtn) => {
       cartBtn.addEventListener("click", (event) => {
-        // Parse product data from cart button
         const product = JSON.parse(event.target.dataset.product);
 
-        // Ensure that the cart data persists across different pages
         const existingCartData = localStorage.getItem("cart");
         if (existingCartData) {
           cart = JSON.parse(existingCartData);
         }
 
-        // Update quantity of product is exist
         if (cart[product.id]) {
           cart = {
             ...cart,
@@ -82,13 +76,12 @@ window.addEventListener("DOMContentLoaded", () => {
           cart = { ...cart, [product.id]: { ...product, quantity: 1 } };
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Display how many products in the cart
+        
         displayNumberOfCartProducts();
       });
     });
   };
-
+  // Number of porducts in Cart
   const displayNumberOfCartProducts = () => {
     const storedCart = JSON.parse(localStorage.getItem("cart"));
     cartIndicator.classList.add("bounce");
@@ -102,16 +95,17 @@ window.addEventListener("DOMContentLoaded", () => {
       cartIndicator.style.color = "black";
     }, 350);
   };
-
-  fetch("https://api.escuelajs.co/api/v1/products") // Fetch API
+  // Fetch API
+  fetch("https://fakestoreapi.com/products")
     .then((resp) => resp.json())
     .then((data) => {
-      productsData = data; // Store the products data
+      productsData = data; 
+      console.log(productsData)
 
-      renderProducts(); // Render the initial products
+      renderProducts(); 
     });
 
-  // Function to handle pagination navigation
+  // Pagination
   const handlePagination = (direction) => {
     if (direction === "next") {
       currentPage++;
@@ -119,16 +113,14 @@ window.addEventListener("DOMContentLoaded", () => {
       currentPage--;
     }
 
-    // Ensure the current page stays within valid limits
     if (currentPage < 1) {
       currentPage = 1;
     } else if (currentPage > Math.ceil(productsData.length / productsPerPage)) {
       currentPage = Math.ceil(productsData.length / productsPerPage);
     }
-
-    renderProducts(); // Render the products for the updated current page
+    renderProducts(); 
   };
-  // Pagination navigation event listeners
+ 
   document.querySelector("#prevPageBtn").addEventListener("click", () => {
     handlePagination("prev");
   });

@@ -14,9 +14,10 @@ let cart = storedCart ? JSON.parse(storedCart) : {};
 // Calc total
 let total = 0;
 const calcTotal = () => {
-  total = Object.values(cart).reduce((accu, product) => {
+ total = Object.values(cart).reduce((accu, product) => {
     return accu + product.price * product.quantity;
   }, 0);
+  return total
 };
 
 // Display cart products
@@ -37,10 +38,11 @@ const renderCart = () => {
     })
     .join("");
 
-  calcTotal();
-
-  cartContainer.innerHTML = productHTML;
-  totalEl.innerHTML = `${total}$`;
+    
+    cartContainer.innerHTML = productHTML;
+    
+    calcTotal();
+  totalEl.innerHTML = `${parseInt(calcTotal())}$`;
 
   // Remove btn
   const removeBtns = document.querySelectorAll(".remove-btn");
