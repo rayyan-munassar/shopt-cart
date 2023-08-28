@@ -7,37 +7,38 @@ let cart = {};
 
 // Wait for the DOM to be loaded
 window.addEventListener("DOMContentLoaded", () => {
-  // Handle search 
-  const searchInput = document.querySelector(".search-input")
-  const searchBtn = document.querySelector(".search-btn")
-  const searchForm = document.querySelector(".search-form")
+  // Handle search
+  const searchInput = document.querySelector(".search-input");
+  const searchBtn = document.querySelector(".search-btn");
+  const searchForm = document.querySelector(".search-form");
 
-  searchForm.addEventListener('click', (e)=>{
-    e.preventDefault()
-    console.log(searchInput.value)
-    renderProducts()
-  })
+  searchForm.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(searchInput.value);
+    const productFound = productsData.filter((product) => {
+      return product.title.includes(searchInput.value);
+    });
+    if (productFound) {
+      console.log(productFound);
+      renderProducts(productFound);
+    }
+  });
 
-  let currentPage = 1;// Initialize the current page
+  let currentPage = 1; // Initialize the current page
   let productsData = []; // Store all products data
 
   // Function to render products for the current page
-  const renderProducts = () => {
+  const renderProducts = (data) => {
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
 
-    const productsToDisplay = productsData.slice(startIndex, endIndex);
+    const productsToDisplay = data.slice(startIndex, endIndex);
 
     // Generate HTML for the products
     const productsHtml = productsToDisplay.map((product) => {
-      const {
-        id,
-        price,
-        title,
-        image,
-      } = product;
+      const { id, price, title, image } = product;
 
-      const productJson = JSON.stringify({id, title, price, image });
+      const productJson = JSON.stringify({ id, title, price, image });
       return `
     <div class="product">
       <img class="product-image" src="${image}" alt="" />
@@ -76,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
           cart = { ...cart, [product.id]: { ...product, quantity: 1 } };
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-        
+
         displayNumberOfCartProducts();
       });
     });
@@ -99,10 +100,8 @@ window.addEventListener("DOMContentLoaded", () => {
   fetch("https://fakestoreapi.com/products")
     .then((resp) => resp.json())
     .then((data) => {
-      productsData = data; 
-      console.log(productsData)
-
-      renderProducts(); 
+      productsData = data;
+      renderProducts(data);
     });
 
   // Pagination
@@ -118,9 +117,9 @@ window.addEventListener("DOMContentLoaded", () => {
     } else if (currentPage > Math.ceil(productsData.length / productsPerPage)) {
       currentPage = Math.ceil(productsData.length / productsPerPage);
     }
-    renderProducts(); 
+    renderProducts();
   };
- 
+
   document.querySelector("#prevPageBtn").addEventListener("click", () => {
     handlePagination("prev");
   });

@@ -5,13 +5,16 @@
 }
 
 .image-base {
-  padding: var(--padding-base);
-  margin-top: var(--margin-base);
+  padding: 0rem 5rem;
+  width: 500px;
+  height: 250px;
+  margin: 5rem auto 0rem auto;
 }
 
 .image-base img {
   width: 100%;
-  padding: 0rem 3.5rem;
+  height: 100%;
+  object-fit: cover;
 }
 
 .products-container {
