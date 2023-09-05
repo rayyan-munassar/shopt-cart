@@ -101,7 +101,7 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((resp) => resp.json())
     .then((data) => {
       productsData = data;
-      renderProducts(data);
+      renderProducts(productsData);
     });
 
   // Pagination
@@ -117,7 +117,7 @@ window.addEventListener("DOMContentLoaded", () => {
     } else if (currentPage > Math.ceil(productsData.length / productsPerPage)) {
       currentPage = Math.ceil(productsData.length / productsPerPage);
     }
-    renderProducts();
+    renderProducts(productsData);
   };
 
   document.querySelector("#prevPageBtn").addEventListener("click", () => {
