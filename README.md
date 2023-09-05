@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # My Awesome Cart Project
 
 This project is a shopping cart implementation that allows users to add products to their cart and view the cart contents. It includes features such as pagination for displaying products and the ability to store specific product information using the data set attribute and JSON serialization.
